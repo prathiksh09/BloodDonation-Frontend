@@ -4,6 +4,7 @@ import {
   FaSignOutAlt,
   FaSignInAlt,
   FaChevronDown,
+  FaUserPlus,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -12,16 +13,23 @@ const Navbar = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+
+  // User profile dropdown
   const [showDropdown, setShowDropdown] = useState(false);
+
+  // Donor dropdown
+  const [showDonorDropdown, setShowDonorDropdown] = useState(false);
 
   // ==========================================================
   // CHECK WHETHER JWT TOKEN IS VALID
   // ==========================================================
+
   const checkLoginStatus = () => {
     const token =
-      localStorage.getItem("token") || localStorage.getItem("userToken");
+      localStorage.getItem("token") ||
+      localStorage.getItem("userToken");
 
-    // No token
+    // No user token
     if (!token) {
       setIsLoggedIn(false);
       setUser(null);
@@ -51,7 +59,9 @@ const Navbar = () => {
       }
 
       // Token is valid
-      const storedUser = JSON.parse(localStorage.getItem("user") || "null");
+      const storedUser = JSON.parse(
+        localStorage.getItem("user") || "null",
+      );
 
       setIsLoggedIn(true);
       setUser(storedUser);
@@ -72,6 +82,7 @@ const Navbar = () => {
   // ==========================================================
   // CHECK LOGIN WHEN NAVBAR LOADS
   // ==========================================================
+
   useEffect(() => {
     checkLoginStatus();
 
@@ -86,6 +97,7 @@ const Navbar = () => {
   // ==========================================================
   // CHECK WHEN LOCAL STORAGE CHANGES
   // ==========================================================
+
   useEffect(() => {
     const handleStorageChange = () => {
       checkLoginStatus();
@@ -101,13 +113,15 @@ const Navbar = () => {
   // ==========================================================
   // USER IMAGE
   // ==========================================================
+
   const userImage = user?.image
     ? `https://res.cloudinary.com/a7dja13r/image/upload/${user.image}`
     : null;
 
   // ==========================================================
-  // LOGOUT
+  // USER LOGOUT
   // ==========================================================
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userToken");
@@ -120,37 +134,84 @@ const Navbar = () => {
     navigate("/");
   };
 
+  // ==========================================================
+  // DONOR DROPDOWN TOGGLE
+  // ==========================================================
+
+  const handleDonorDropdown = () => {
+    setShowDonorDropdown(!showDonorDropdown);
+
+    // Close user profile dropdown if open
+    setShowDropdown(false);
+  };
+
+  // ==========================================================
+  // CLOSE DONOR DROPDOWN AFTER CLICK
+  // ==========================================================
+
+  const closeDonorDropdown = () => {
+    setShowDonorDropdown(false);
+  };
+
   return (
-    <nav className="lifeline-navbar" style={styles.navbar}>
+    <nav
+      className="lifeline-navbar"
+      style={styles.navbar}
+    >
       {/* ======================================================
           LOGO
       ====================================================== */}
-      <Link to="/" className="lifeline-logo" style={styles.logo}>
+
+      <Link
+        to="/"
+        className="lifeline-logo"
+        style={styles.logo}
+      >
         <FaTint style={styles.logoIcon} />
+
         <span>LifeLine</span>
       </Link>
 
       {/* ======================================================
           MENU
       ====================================================== */}
-      <ul className="lifeline-menu" style={styles.menu}>
+
+      <ul
+        className="lifeline-menu"
+        style={styles.menu}
+      >
         {/* HOME */}
+
         <li>
-          <Link to="/" className="lifeline-link" style={styles.link}>
+          <Link
+            to="/"
+            className="lifeline-link"
+            style={styles.link}
+          >
             Home
           </Link>
         </li>
 
         {/* ABOUT */}
+
         <li>
-          <Link to="/about" className="lifeline-link" style={styles.link}>
+          <Link
+            to="/about"
+            className="lifeline-link"
+            style={styles.link}
+          >
             About
           </Link>
         </li>
 
         {/* DONORS */}
+
         <li>
-          <Link to="/donors" className="lifeline-link" style={styles.link}>
+          <Link
+            to="/donors"
+            className="lifeline-link"
+            style={styles.link}
+          >
             Donors
           </Link>
         </li>
@@ -158,36 +219,119 @@ const Navbar = () => {
         {/* ==================================================
             STATUS - ONLY LOGGED IN USERS
         ================================================== */}
+
         {isLoggedIn && (
           <li>
-            <Link to="/status" className="lifeline-link" style={styles.link}>
+            <Link
+              to="/status"
+              className="lifeline-link"
+              style={styles.link}
+            >
               Status
             </Link>
           </li>
         )}
 
         {/* CONTACT */}
+
         <li>
-          <Link to="/contact" className="lifeline-link" style={styles.link}>
+          <Link
+            to="/contact"
+            className="lifeline-link"
+            style={styles.link}
+          >
             Contact
           </Link>
         </li>
       </ul>
 
       {/* ======================================================
-          LOGIN / PROFILE
+          RIGHT SIDE BUTTONS
       ====================================================== */}
-      <div className="lifeline-buttons" style={styles.buttons}>
+
+      <div
+        className="lifeline-buttons"
+        style={styles.buttons}
+      >
+        {/* ====================================================
+            DONOR BUTTON
+        ==================================================== */}
+
+        <div style={styles.donorContainer}>
+          <button
+            onClick={handleDonorDropdown}
+            style={styles.donorBtn}
+          >
+            <FaTint style={styles.donorBtnIcon} />
+
+            <span>Donor</span>
+
+            <FaChevronDown
+              style={{
+                ...styles.donorArrow,
+                transform: showDonorDropdown
+                  ? "rotate(180deg)"
+                  : "rotate(0deg)",
+              }}
+            />
+          </button>
+
+          {/* ==================================================
+              DONOR DROPDOWN
+          ================================================== */}
+
+          {showDonorDropdown && (
+            <div style={styles.donorDropdown}>
+              {/* DONOR LOGIN */}
+
+              <Link
+                to="/donor-login"
+                style={styles.donorDropdownItem}
+                onClick={closeDonorDropdown}
+              >
+                <FaSignInAlt
+                  style={styles.dropdownIcon}
+                />
+
+                <span>Donor Login</span>
+              </Link>
+
+              {/* DONOR REGISTER */}
+
+              <Link
+                to="/donor-register"
+                style={styles.donorDropdownItem}
+                onClick={closeDonorDropdown}
+              >
+                <FaUserPlus
+                  style={styles.dropdownIcon}
+                />
+
+                <span>Donor Register</span>
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* ====================================================
+            USER LOGIN / PROFILE
+        ==================================================== */}
+
         {isLoggedIn ? (
-          /* ==================================================
-             LOGGED IN → PROFILE
-          ================================================== */
+          /* ================================================
+             LOGGED IN → USER PROFILE
+          ================================================= */
+
           <div style={styles.profileContainer}>
             <button
-              onClick={() => setShowDropdown(!showDropdown)}
+              onClick={() => {
+                setShowDropdown(!showDropdown);
+                setShowDonorDropdown(false);
+              }}
               style={styles.profileBox}
             >
               {/* PROFILE IMAGE */}
+
               {userImage ? (
                 <img
                   src={userImage}
@@ -196,38 +340,62 @@ const Navbar = () => {
                 />
               ) : (
                 <div style={styles.profileFallback}>
-                  {user?.name?.charAt(0)?.toUpperCase() || "U"}
+                  {user?.name
+                    ?.charAt(0)
+                    ?.toUpperCase() || "U"}
                 </div>
               )}
 
               {/* USER NAME */}
-              <span style={styles.userName}>{user?.name || "User"}</span>
+
+              <span style={styles.userName}>
+                {user?.name || "User"}
+              </span>
 
               {/* ARROW */}
+
               <FaChevronDown
                 style={{
                   ...styles.arrow,
-                  transform: showDropdown ? "rotate(180deg)" : "rotate(0deg)",
+                  transform: showDropdown
+                    ? "rotate(180deg)"
+                    : "rotate(0deg)",
                 }}
               />
             </button>
 
-            {/* DROPDOWN */}
+            {/* ==================================================
+                USER DROPDOWN
+            ================================================== */}
+
             {showDropdown && (
               <div style={styles.dropdown}>
-                <button onClick={handleLogout} style={styles.logoutBtn}>
-                  <FaSignOutAlt style={{ marginRight: "8px" }} />
+                <button
+                  onClick={handleLogout}
+                  style={styles.logoutBtn}
+                >
+                  <FaSignOutAlt
+                    style={{ marginRight: "8px" }}
+                  />
+
                   Logout
                 </button>
               </div>
             )}
           </div>
         ) : (
-          /* ==================================================
-             LOGGED OUT → LOGIN
-          ================================================== */
-          <Link to="/user-login" style={styles.loginBtn}>
-            <FaSignInAlt style={{ marginRight: "8px" }} />
+          /* ================================================
+             LOGGED OUT → USER LOGIN
+          ================================================= */
+
+          <Link
+            to="/user-login"
+            style={styles.loginBtn}
+          >
+            <FaSignInAlt
+              style={{ marginRight: "8px" }}
+            />
+
             Login
           </Link>
         )}
@@ -236,30 +404,48 @@ const Navbar = () => {
   );
 };
 
+// ==========================================================
+// STYLES
+// ==========================================================
+
 const styles = {
   navbar: {
     width: "100%",
     height: "80px",
     backgroundColor: "#ffffff",
+
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+
     padding: "0 70px",
+
     boxShadow: "0 3px 10px rgba(0,0,0,0.1)",
+
     position: "sticky",
     top: 0,
+
     zIndex: 1000,
+
     boxSizing: "border-box",
   },
+
+  // ========================================================
+  // LOGO
+  // ========================================================
 
   logo: {
     display: "flex",
     alignItems: "center",
     gap: "10px",
+
     color: "#d90429",
+
     fontSize: "28px",
     fontWeight: "bold",
+
     textDecoration: "none",
+
     whiteSpace: "nowrap",
   },
 
@@ -268,28 +454,146 @@ const styles = {
     flexShrink: 0,
   },
 
+  // ========================================================
+  // MENU
+  // ========================================================
+
   menu: {
     display: "flex",
     alignItems: "center",
+
     listStyle: "none",
+
     gap: "32px",
+
     margin: 0,
     padding: 0,
   },
 
   link: {
     textDecoration: "none",
+
     color: "#333333",
+
     fontSize: "17px",
     fontWeight: "500",
+
     whiteSpace: "nowrap",
   },
+
+  // ========================================================
+  // RIGHT BUTTONS
+  // ========================================================
 
   buttons: {
     display: "flex",
     alignItems: "center",
-    gap: "15px",
+
+    gap: "12px",
   },
+
+  // ========================================================
+  // DONOR BUTTON
+  // ========================================================
+
+  donorContainer: {
+    position: "relative",
+  },
+
+  donorBtn: {
+    height: "44px",
+
+    padding: "0 15px",
+
+    border: "2px solid #d90429",
+    borderRadius: "8px",
+
+    backgroundColor: "#d90429",
+    color: "#ffffff",
+
+    fontWeight: "600",
+    fontSize: "15px",
+
+    cursor: "pointer",
+
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+
+    whiteSpace: "nowrap",
+  },
+
+  donorBtnIcon: {
+    marginRight: "7px",
+    fontSize: "15px",
+  },
+
+  donorArrow: {
+    marginLeft: "8px",
+    fontSize: "10px",
+
+    transition: "transform 0.2s ease",
+  },
+
+  // ========================================================
+  // DONOR DROPDOWN
+  // ========================================================
+
+  donorDropdown: {
+    position: "absolute",
+
+    top: "53px",
+    right: 0,
+
+    width: "190px",
+
+    backgroundColor: "#ffffff",
+
+    border: "1px solid #e3e3e3",
+
+    borderRadius: "10px",
+
+    padding: "8px",
+
+    boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
+
+    zIndex: 2000,
+
+    boxSizing: "border-box",
+  },
+
+  donorDropdownItem: {
+    width: "100%",
+
+    display: "flex",
+    alignItems: "center",
+
+    gap: "10px",
+
+    padding: "12px",
+
+    boxSizing: "border-box",
+
+    borderRadius: "7px",
+
+    color: "#333333",
+
+    textDecoration: "none",
+
+    fontSize: "14px",
+
+    fontWeight: "600",
+  },
+
+  dropdownIcon: {
+    color: "#d90429",
+    fontSize: "16px",
+    flexShrink: 0,
+  },
+
+  // ========================================================
+  // USER PROFILE
+  // ========================================================
 
   profileContainer: {
     position: "relative",
@@ -298,96 +602,159 @@ const styles = {
   profileBox: {
     width: "175px",
     height: "52px",
+
     padding: "5px 12px",
+
     backgroundColor: "#ffffff",
+
     border: "1px solid #dddddd",
+
     borderRadius: "8px",
+
     display: "flex",
     alignItems: "center",
+
     gap: "10px",
+
     cursor: "pointer",
+
     boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
   },
 
   profileImage: {
     width: "40px",
     height: "40px",
+
     borderRadius: "50%",
+
     objectFit: "cover",
+
     border: "2px solid #514d4da6",
+
     flexShrink: 0,
   },
 
   profileFallback: {
     width: "40px",
     height: "40px",
+
     borderRadius: "50%",
+
     backgroundColor: "#d90429",
+
     color: "#ffffff",
+
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+
     fontWeight: "bold",
+
     fontSize: "17px",
+
     flexShrink: 0,
   },
 
   userName: {
     color: "#333333",
+
     fontSize: "16px",
     fontWeight: "600",
+
     overflow: "hidden",
+
     textOverflow: "ellipsis",
+
     whiteSpace: "nowrap",
+
     maxWidth: "90px",
   },
 
   arrow: {
     fontSize: "12px",
+
     color: "#555555",
+
     marginLeft: "auto",
+
     transition: "transform 0.2s ease",
   },
 
+  // ========================================================
+  // USER DROPDOWN
+  // ========================================================
+
   dropdown: {
     position: "absolute",
+
     top: "60px",
     right: "0",
+
     width: "175px",
+
     backgroundColor: "#ffffff",
+
     border: "1px solid #dddddd",
+
     borderRadius: "8px",
+
     padding: "8px",
+
     boxShadow: "0 5px 15px rgba(0,0,0,0.15)",
+
     zIndex: 2000,
   },
 
   logoutBtn: {
     width: "100%",
+
     padding: "10px 15px",
+
     border: "none",
+
     borderRadius: "6px",
+
     backgroundColor: "#464344d8",
+
     color: "#ffffff",
+
     fontWeight: "600",
+
     cursor: "pointer",
+
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+
     fontSize: "15px",
   },
 
+  // ========================================================
+  // USER LOGIN BUTTON
+  // ========================================================
+
   loginBtn: {
-    padding: "10px 20px",
+    height: "44px",
+
+    padding: "0 20px",
+
     border: "2px solid #d90429",
+
     borderRadius: "8px",
+
     backgroundColor: "#ffffff",
+
     color: "#d90429",
+
     fontWeight: "600",
+
     textDecoration: "none",
+
     display: "inline-flex",
+
     alignItems: "center",
     justifyContent: "center",
+
     whiteSpace: "nowrap",
   },
 };
