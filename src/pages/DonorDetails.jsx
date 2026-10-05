@@ -20,12 +20,17 @@ const DonorDetails = () => {
     contact: "",
     address: "",
   });
-  const [file, setfile] = useState(""); //creating state
+
+  // Store selected image
+  const [file, setFile] = useState(null);
 
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Handle input changes
+  // ==========================================================
+  // HANDLE INPUT CHANGE
+  // ==========================================================
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -35,11 +40,22 @@ const DonorDetails = () => {
     }));
   };
 
-  const handleFile = (e) => {
-    setfile(e.target.files[0]);
+  // ==========================================================
+  // HANDLE IMAGE
+  // ==========================================================
+
+  const handleFile = (event) => {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      setFile(selectedFile);
+    }
   };
 
-  // Submit donor details
+  // ==========================================================
+  // SUBMIT DONOR DETAILS
+  // ==========================================================
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -47,21 +63,42 @@ const DonorDetails = () => {
       setLoading(true);
       setMessage("");
 
+      // ========================================================
+      // GET DONOR TOKEN
+      // ========================================================
+
       const token = localStorage.getItem("donorToken");
 
       if (!token) {
         setMessage("Donor token not found. Please register or login again.");
+
+        setLoading(false);
         return;
       }
 
+      // ========================================================
+      // CREATE FORMDATA
+      // ========================================================
+
       const formData1 = new FormData();
+
       formData1.append("donorName", formData.donorName);
       formData1.append("bloodGroup", formData.bloodGroup);
       formData1.append("age", formData.age);
       formData1.append("contact", formData.contact);
       formData1.append("address", formData.address);
-      formData1.append("image", file);
-      console.log(formData1);
+
+      // Only add image if user selected one
+      if (file) {
+        formData1.append("image", file);
+      }
+
+      console.log("Submitting donor details...");
+
+      // ========================================================
+      // SEND REQUEST TO RENDER BACKEND
+      // ========================================================
+
       const response = await axios.post(
         "https://blooddonation-backend-1.onrender.com/api/create-donor",
         formData1,
@@ -74,9 +111,14 @@ const DonorDetails = () => {
 
       console.log("Donor Details Response:", response.data);
 
+      // ========================================================
+      // SUCCESS
+      // ========================================================
+
       if (response.data.success) {
         setMessage("Donor details saved successfully");
 
+        // Clear form
         setFormData({
           donorName: "",
           bloodGroup: "",
@@ -85,6 +127,10 @@ const DonorDetails = () => {
           address: "",
         });
 
+        // Clear selected image
+        setFile(null);
+
+        // Redirect to donor login
         setTimeout(() => {
           navigate("/donor-login");
         }, 1000);
@@ -92,17 +138,45 @@ const DonorDetails = () => {
         setMessage(response.data.message || "Unable to save donor details");
       }
     } catch (error) {
-      console.log("Donor Details Error:", error);
+      console.error("Donor Details Error:", error);
 
-      setMessage(
-        error.response?.data?.message ||
-          error.message ||
-          "Unable to connect to server",
-      );
+      // ========================================================
+      // BACKEND ERROR
+      // ========================================================
+
+      if (error.response) {
+        console.error("Backend Status:", error.response.status);
+
+        console.error("Backend Response:", error.response.data);
+
+        setMessage(
+          error.response.data?.message || "Unable to save donor details",
+        );
+      }
+
+      // ========================================================
+      // REQUEST SENT BUT NO RESPONSE
+      // ========================================================
+      else if (error.request) {
+        setMessage(
+          "Unable to connect to the backend server. Please try again.",
+        );
+      }
+
+      // ========================================================
+      // OTHER ERROR
+      // ========================================================
+      else {
+        setMessage(error.message || "Unable to save donor details");
+      }
     } finally {
       setLoading(false);
     }
   };
+
+  // ==========================================================
+  // UI
+  // ==========================================================
 
   return (
     <div style={styles.container}>
@@ -115,7 +189,10 @@ const DonorDetails = () => {
         </p>
 
         <div style={styles.grid}>
-          {/* Full Name */}
+          {/* ==================================================
+              FULL NAME
+          ================================================== */}
+
           <div style={styles.inputBox}>
             <FaUser style={styles.icon} />
 
@@ -130,7 +207,10 @@ const DonorDetails = () => {
             />
           </div>
 
-          {/* Blood Group */}
+          {/* ==================================================
+              BLOOD GROUP
+          ================================================== */}
+
           <div style={styles.inputBox}>
             <FaTint style={styles.icon} />
 
@@ -154,7 +234,10 @@ const DonorDetails = () => {
             </select>
           </div>
 
-          {/* Age */}
+          {/* ==================================================
+              AGE
+          ================================================== */}
+
           <div style={styles.inputBox}>
             <FaCalendarAlt style={styles.icon} />
 
@@ -171,7 +254,10 @@ const DonorDetails = () => {
             />
           </div>
 
-          {/* Contact */}
+          {/* ==================================================
+              CONTACT
+          ================================================== */}
+
           <div style={styles.inputBox}>
             <FaPhone style={styles.icon} />
 
@@ -187,10 +273,22 @@ const DonorDetails = () => {
               required
             />
           </div>
-          <input type="file" onChange={handleFile} />
+
+          {/* ==================================================
+              IMAGE
+          ================================================== */}
+
+          <div style={styles.fileBox}>
+            <input type="file" accept="image/*" onChange={handleFile} />
+
+            {file && <p style={styles.fileName}>Selected: {file.name}</p>}
+          </div>
         </div>
 
-        {/* Address */}
+        {/* ==================================================
+            ADDRESS
+        ================================================== */}
+
         <div style={styles.addressBox}>
           <FaMapMarkerAlt style={styles.addressIcon} />
 
@@ -205,23 +303,44 @@ const DonorDetails = () => {
           />
         </div>
 
-        {/* Submit */}
+        {/* ==================================================
+            SUBMIT BUTTON
+        ================================================== */}
+
         <button
           type="submit"
           style={{
             ...styles.button,
             opacity: loading ? 0.7 : 1,
+            cursor: loading ? "not-allowed" : "pointer",
           }}
           disabled={loading}
         >
           {loading ? "Saving..." : "Save Donor Details"}
         </button>
 
-        {message && <p style={styles.message}>{message}</p>}
+        {/* ==================================================
+            MESSAGE
+        ================================================== */}
+
+        {message && (
+          <p
+            style={{
+              ...styles.message,
+              color: message.includes("successfully") ? "#16a34a" : "#e0002b",
+            }}
+          >
+            {message}
+          </p>
+        )}
       </form>
     </div>
   );
 };
+
+// ==========================================================
+// STYLES
+// ==========================================================
 
 const styles = {
   container: {
@@ -300,6 +419,20 @@ const styles = {
     cursor: "pointer",
   },
 
+  fileBox: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    padding: "10px 0",
+  },
+
+  fileName: {
+    margin: "6px 0 0",
+    fontSize: "13px",
+    color: "#737373",
+    wordBreak: "break-word",
+  },
+
   addressBox: {
     display: "flex",
     alignItems: "flex-start",
@@ -346,7 +479,6 @@ const styles = {
   message: {
     marginTop: "18px",
     textAlign: "center",
-    color: "#e0002b",
     fontWeight: "600",
   },
 };
