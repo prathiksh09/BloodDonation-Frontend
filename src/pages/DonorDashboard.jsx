@@ -103,7 +103,7 @@ const DonorDashboard = () => {
       }
 
       const response = await axios.get(
-        "http://localhost:5001/api/mydonor-details",
+        "https://blooddonation-backend-1.onrender.com/api/mydonor-details",
         {
           headers: {
             token: token,
@@ -144,7 +144,7 @@ const DonorDashboard = () => {
       setRequestLoading(true);
 
       const response = await axios.get(
-        "http://localhost:5001/api/donor-requests",
+        "https://blooddonation-backend-1.onrender.com/api/donor-requests",
         {
           headers: {
             token: token,
@@ -191,7 +191,7 @@ const DonorDashboard = () => {
       setFeedbackLoading(true);
 
       const response = await axios.get(
-        "http://localhost:5001/api/getDonorFeedback",
+        "https://blooddonation-backend-1.onrender.com/api/getDonorFeedback",
         {
           headers: {
             token: token,
@@ -233,7 +233,7 @@ const DonorDashboard = () => {
       setMyDonationLoading(true);
 
       const response = await axios.get(
-        "http://localhost:5001/api/my-donations",
+        "https://blooddonation-backend-1.onrender.com/api/my-donations",
         {
           headers: {
             token: token,
@@ -321,7 +321,7 @@ const DonorDashboard = () => {
       setUpdatingRequest(requestId);
 
       const response = await axios.patch(
-        `http://localhost:5001/api/${requestId}/status`,
+        `https://blooddonation-backend-1.onrender.com/api/${requestId}/status`,
         {
           status: status,
         },

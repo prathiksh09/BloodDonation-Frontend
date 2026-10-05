@@ -28,7 +28,7 @@ const Donors = () => {
         setErrorMessage("");
 
         const response = await axios.get(
-          `http://localhost:5001/api/get-all-donors?page=${currentPage}&limit=${limit}`,
+          `https://blooddonation-backend-1.onrender.com/api/get-all-donors?page=${currentPage}&limit=${limit}`,
         );
 
         console.log("Donor data:", response.data);

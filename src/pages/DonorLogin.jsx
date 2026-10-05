@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaEnvelope, FaLock,  } from "react-icons/fa";
+import { FaEnvelope, FaLock } from "react-icons/fa";
 
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -32,7 +32,7 @@ const DonorLogin = () => {
       setMessage("");
 
       const response = await axios.post(
-        "http://localhost:5001/api/useLogin1",
+        "https://blooddonation-backend-1.onrender.com/api/useLogin1",
         formData,
       );
 
@@ -72,8 +72,6 @@ const DonorLogin = () => {
   return (
     <div style={styles.container}>
       <form style={styles.card} onSubmit={handleSubmit}>
-   
-
         <h1 style={styles.title}>Donor Login</h1>
 
         <p style={styles.subtitle}>
@@ -127,8 +125,6 @@ const DonorLogin = () => {
             Register
           </Link>
         </p>
-
-       
       </form>
     </div>
   );
@@ -154,8 +150,6 @@ const styles = {
     backgroundColor: "#ffffff",
     boxShadow: "0 14px 35px rgba(0,0,0,0.09)",
   },
-
- 
 
   title: {
     margin: "0 0 10px",
@@ -226,8 +220,6 @@ const styles = {
     fontWeight: "700",
     textDecoration: "none",
   },
-
-  
 };
 
 export default DonorLogin;

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import heroImage from "../assets/bannerimg.png"
-import bannerImage from "../assets/backimg.png"
+import heroImage from "../assets/bannerimg.png";
+import bannerImage from "../assets/backimg.png";
 import {
   FaSearch,
   FaHandHoldingHeart,
@@ -24,7 +24,7 @@ const Home = () => {
   const [loadingHighlights, setLoadingHighlights] = useState(true);
   const [selectedHighlight, setSelectedHighlight] = useState(null);
 
-  const API_URL = "http://localhost:5001/api";
+  const API_URL = "https://blooddonation-backend-1.onrender.com/api";
 
   // ==========================================================
   // GET BLOOD HIGHLIGHTS
@@ -178,13 +178,12 @@ const Home = () => {
             </div>
           </div>
 
-          {/* RIGHT SIDE IMAGE */}  
+          {/* RIGHT SIDE IMAGE */}
 
           <div className="home-right" style={styles.right}>
             <img
               ref={heroImageRef}
               className="home-hero-image"
-
               // added img from assest
 
               src={heroImage}
@@ -298,7 +297,6 @@ const Home = () => {
               {/* MODAL HEADER */}
 
               <div style={styles.modalHeader}>
-                
                 {/* ADMIN UPLOADED IMAGE IN MODAL */}
 
                 <div style={styles.modalBloodImageBox}>
@@ -317,8 +315,6 @@ const Home = () => {
                   <h2 style={styles.modalTitle}>
                     {selectedHighlight.bloodGroup} Blood Group
                   </h2>
-
-                 
                 </div>
 
                 <button
@@ -349,10 +345,7 @@ const Home = () => {
 
                 {selectedHighlight.healthInfo && (
                   <div style={styles.healthInfoBox}>
-                    <h3 style={styles.healthInfoTitle}>
-
-                    Disease Information
-                    </h3>
+                    <h3 style={styles.healthInfoTitle}>Disease Information</h3>
 
                     <p style={styles.healthInfoText}>
                       {selectedHighlight.healthInfo}
@@ -399,8 +392,6 @@ const Home = () => {
                 </div>
 
                 {/* INFORMATION */}
-
-               
               </div>
 
               {/* MODAL FOOTER */}
@@ -423,7 +414,6 @@ const Home = () => {
         ================================================== */}
 
         <section className="awareness-section" style={styles.awarenessSection}>
-          
           {/* IMAGE */}
 
           <div style={styles.awarenessImageContainer}>
@@ -504,7 +494,6 @@ const Home = () => {
     </>
   );
 };
-
 
 const styles = {
   page: {
@@ -803,7 +792,7 @@ const styles = {
 
   modalOverlay: {
     position: "fixed",
-    width:"100%",
+    width: "100%",
     inset: 0,
     zIndex: 9999,
     display: "flex",
@@ -834,9 +823,7 @@ const styles = {
     color: "#ffffff",
   },
 
-
   // MODAL UPLOADED IMAGE
-
 
   modalBloodImageBox: {
     width: "65px",
@@ -873,8 +860,6 @@ const styles = {
     fontSize: "24px",
     fontWeight: "800",
   },
-
- 
 
   closeButton: {
     width: "40px",
@@ -983,7 +968,6 @@ const styles = {
     fontWeight: "700",
     lineHeight: "1.5",
   },
-
 
   modalFooter: {
     padding: "18px 28px 25px",

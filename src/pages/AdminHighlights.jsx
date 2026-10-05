@@ -71,7 +71,7 @@ const AdminHighlights = () => {
         }
 
         const response = await axios.get(
-          `http://localhost:5001/api/highlights/${editId}`,
+          `https://blooddonation-backend-1.onrender.com/api/highlights/${editId}`,
           {
             headers: {
               token: token,
@@ -265,7 +265,7 @@ const AdminHighlights = () => {
 
       if (isEditMode) {
         response = await axios.put(
-          `http://localhost:5001/api/highlights/${editId}`,
+          `https://blooddonation-backend-1.onrender.com/api/highlights/${editId}`,
           highlightData,
           {
             headers: {
@@ -295,7 +295,7 @@ const AdminHighlights = () => {
       // ======================================================
       else {
         response = await axios.post(
-          "http://localhost:5001/api/highlights/create",
+          "https://blooddonation-backend-1.onrender.com/api/highlights/create",
           highlightData,
           {
             headers: {
@@ -515,7 +515,7 @@ const AdminHighlights = () => {
                     <p style={styles.previewLabel}>Current Image:</p>
 
                     <img
-                      src={`http://localhost:5001/uploads/${existingImage}`}
+                      src={`https://blooddonation-backend-1.onrender.com/uploads/${existingImage}`}
                       alt="Current blood group"
                       style={styles.previewImage}
                     />

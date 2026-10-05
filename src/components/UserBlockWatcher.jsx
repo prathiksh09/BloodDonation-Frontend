@@ -43,11 +43,14 @@ const UserBlockWatcher = () => {
       // CHECK USER WITH BACKEND
 
       try {
-        await axios.get("http://localhost:5001/api/check-user-status", {
-          headers: {
-            token: userToken,
+        await axios.get(
+          "https://blooddonation-backend-1.onrender.com/api/check-user-status",
+          {
+            headers: {
+              token: userToken,
+            },
           },
-        });
+        );
 
         // User is active
         console.log("User account is active");

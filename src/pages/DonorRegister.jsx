@@ -1,14 +1,7 @@
 import { useState } from "react";
-import {
-  FaUser,
-  FaEnvelope,
-  FaLock,
-} from "react-icons/fa";
+import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 
-import {
-  Link,
-  useNavigate,
-} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -45,32 +38,22 @@ const DonorRegister = () => {
       setMessage("");
 
       const response = await axios.post(
-        "http://localhost:5001/api/registerDonor",
-        formData
+        "https://blooddonation-backend-1.onrender.com/api/registerDonor",
+        formData,
       );
 
-      console.log(
-        "Donor Register Response:",
-        response.data
-      );
+      console.log("Donor Register Response:", response.data);
 
       if (response.data.success) {
         setMessage(
-          response.data.message ||
-            "Donor account registered successfully"
+          response.data.message || "Donor account registered successfully",
         );
 
         // Save donor JWT token
-        localStorage.setItem(
-          "donorToken",
-          response.data.token
-        );
+        localStorage.setItem("donorToken", response.data.token);
 
         // Save donor email if required later
-        localStorage.setItem(
-          "donorEmail",
-          formData.email
-        );
+        localStorage.setItem("donorEmail", formData.email);
 
         // Clear form
         setFormData({
@@ -86,41 +69,30 @@ const DonorRegister = () => {
       } else {
         // express-validator may return array
         if (Array.isArray(response.data.message)) {
-          const validationMessage =
-            response.data.message
-              .map((error) => error.msg)
-              .join(", ");
+          const validationMessage = response.data.message
+            .map((error) => error.msg)
+            .join(", ");
 
           setMessage(validationMessage);
         } else {
-          setMessage(
-            response.data.message ||
-              "Donor registration failed"
-          );
+          setMessage(response.data.message || "Donor registration failed");
         }
       }
     } catch (error) {
-      console.log(
-        "Donor Register Error:",
-        error
-      );
+      console.log("Donor Register Error:", error);
 
-      const backendMessage =
-        error.response?.data?.message;
+      const backendMessage = error.response?.data?.message;
 
       // Handle express-validator error array
       if (Array.isArray(backendMessage)) {
-        const validationMessage =
-          backendMessage
-            .map((error) => error.msg)
-            .join(", ");
+        const validationMessage = backendMessage
+          .map((error) => error.msg)
+          .join(", ");
 
         setMessage(validationMessage);
       } else {
         setMessage(
-          backendMessage ||
-            error.message ||
-            "Unable to connect to server"
+          backendMessage || error.message || "Unable to connect to server",
         );
       }
     } finally {
@@ -130,17 +102,10 @@ const DonorRegister = () => {
 
   return (
     <div style={styles.container}>
-      <form
-        style={styles.card}
-        onSubmit={handleSubmit}
-      >
-        <h1 style={styles.title}>
-          Donor Register
-        </h1>
+      <form style={styles.card} onSubmit={handleSubmit}>
+        <h1 style={styles.title}>Donor Register</h1>
 
-        <p style={styles.subtitle}>
-          Create your donor account first.
-        </p>
+        <p style={styles.subtitle}>Create your donor account first.</p>
 
         {/* NAME */}
         <div style={styles.inputBox}>
@@ -197,25 +162,16 @@ const DonorRegister = () => {
           }}
           disabled={loading}
         >
-          {loading
-            ? "Registering..."
-            : "Register"}
+          {loading ? "Registering..." : "Register"}
         </button>
 
         {/* MESSAGE */}
-        {message && (
-          <p style={styles.message}>
-            {message}
-          </p>
-        )}
+        {message && <p style={styles.message}>{message}</p>}
 
         {/* LOGIN */}
         <p style={styles.loginText}>
           Already have a donor account?{" "}
-          <Link
-            to="/donor-login"
-            style={styles.link}
-          >
+          <Link to="/donor-login" style={styles.link}>
             Login
           </Link>
         </p>
@@ -242,8 +198,7 @@ const styles = {
     boxSizing: "border-box",
     borderRadius: "20px",
     backgroundColor: "#ffffff",
-    boxShadow:
-      "0 14px 35px rgba(0,0,0,0.09)",
+    boxShadow: "0 14px 35px rgba(0,0,0,0.09)",
   },
 
   title: {
