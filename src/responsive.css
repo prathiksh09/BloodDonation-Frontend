@@ -1,0 +1,589 @@
+/* =========================
+   GLOBAL RESPONSIVE FIXES
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+  .lifeline-navbar {
+    padding: 0 25px !important;
+  }
+
+  .lifeline-menu {
+    gap: 18px !important;
+  }
+
+  .home-hero {
+    width: 92% !important;
+    gap: 35px !important;
+  }
+
+  .home-heading {
+    font-size: 45px !important;
+  }
+
+  .home-left,
+  .home-right {
+    width: 50% !important;
+  }
+
+  .awareness-section {
+    grid-template-columns: 1fr !important;
+    gap: 45px !important;
+  }
+
+  .contact-wrapper {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+  /* NAVBAR */
+
+  .lifeline-navbar {
+    height: auto !important;
+    min-height: 70px !important;
+    padding: 14px 18px !important;
+    flex-wrap: wrap !important;
+    gap: 15px !important;
+  }
+
+  .lifeline-logo {
+    font-size: 22px !important;
+  }
+
+  .lifeline-menu {
+    width: 100% !important;
+    order: 3 !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+  }
+
+  .lifeline-link {
+    font-size: 14px !important;
+  }
+
+  .lifeline-buttons {
+    gap: 8px !important;
+  }
+
+  .lifeline-login-btn {
+    padding: 8px 11px !important;
+    font-size: 12px !important;
+  }
+
+  /* HOME HERO */
+
+  .home-hero {
+    width: 90% !important;
+    min-height: auto !important;
+    padding: 45px 0 !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 45px !important;
+  }
+
+  .home-left,
+  .home-right {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .home-heading {
+    font-size: 42px !important;
+    line-height: 1.1 !important;
+  }
+
+  .home-description {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+  }
+
+  .home-actions {
+    flex-direction: column !important;
+  }
+
+  .home-action-btn {
+    width: 100% !important;
+  }
+
+  .home-stats {
+    gap: 25px !important;
+    justify-content: space-between !important;
+  }
+
+  .home-stat-item {
+    min-width: 90px !important;
+  }
+
+  .home-illustration-card {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 35px 22px !important;
+  }
+
+  /* AWARENESS */
+
+  .awareness-section {
+    width: 90% !important;
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+    padding: 45px 0 !important;
+  }
+
+  .awareness-visual {
+    min-height: 400px !important;
+  }
+
+  .awareness-title {
+    font-size: 34px !important;
+  }
+
+  /* CONTACT */
+
+  .contact-wrapper {
+    width: 92% !important;
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  .contact-title {
+    font-size: 36px !important;
+  }
+
+  .contact-form {
+    padding: 26px !important;
+  }
+
+  /* USER/DONOR DASHBOARDS */
+
+  .dashboard-page {
+    display: block !important;
+  }
+
+  .dashboard-sidebar {
+    min-height: auto !important;
+    width: 100% !important;
+  }
+
+  .dashboard-content {
+    padding: 20px !important;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-request-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 430px) {
+  .lifeline-navbar {
+    justify-content: center !important;
+  }
+
+  .lifeline-logo {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .lifeline-buttons {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .home-heading {
+    font-size: 34px !important;
+  }
+
+  .home-stats {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .home-stat-item {
+    text-align: center !important;
+  }
+
+  .awareness-title {
+    font-size: 30px !important;
+  }
+
+  .contact-title {
+    font-size: 31px !important;
+  }
+}
+/* =========================
+   ABOUT PAGE
+========================= */
+
+@media (max-width: 900px) {
+  .about-hero {
+    gap: 35px !important;
+  }
+
+  .about-heading {
+    font-size: 44px !important;
+  }
+
+  .about-hero-content {
+    width: 55% !important;
+  }
+
+  .about-hero-visual {
+    width: 45% !important;
+  }
+
+  .about-cards {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .about-hero {
+    width: 90% !important;
+    padding: 45px 0 !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 40px !important;
+  }
+
+  .about-hero-content,
+  .about-hero-visual {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .about-heading {
+    font-size: 38px !important;
+    line-height: 1.15 !important;
+  }
+
+  .about-description {
+    font-size: 16px !important;
+  }
+
+  .about-stats {
+    flex-direction: column !important;
+  }
+
+  .about-stat-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .about-hero-visual {
+    min-height: 350px !important;
+  }
+
+  .about-cards {
+    grid-template-columns: 1fr !important;
+  }
+
+  .about-developer {
+    flex-direction: column !important;
+    gap: 15px !important;
+  }
+
+  .about-developer .about-developer-content {
+    flex-wrap: wrap !important;
+    white-space: normal !important;
+  }
+
+  .about-developer > div:first-child,
+  .about-developer > div:last-child {
+    width: 100% !important;
+    flex: none !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .about-heading {
+    font-size: 32px !important;
+  }
+
+  .about-developer-content {
+    flex-direction: column !important;
+  }
+
+  .about-developer-content > span:nth-of-type(2) {
+    display: none !important;
+  }
+}
+/* =========================
+   CONTACT PAGE
+========================= */
+
+@media (max-width: 900px) {
+  .contact-wrapper {
+    gap: 35px !important;
+  }
+
+  .contact-title {
+    font-size: 38px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .contact-wrapper {
+    width: 100% !important;
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  .contact-left {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .contact-title {
+    font-size: 34px !important;
+    line-height: 1.2 !important;
+  }
+
+  .contact-description {
+    font-size: 16px !important;
+  }
+
+  .contact-form {
+    width: 100% !important;
+    padding: 28px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .contact-title {
+    font-size: 30px !important;
+  }
+
+  .contact-form {
+    padding: 22px 18px !important;
+    border-radius: 17px !important;
+  }
+}
+/* =========================
+   USER DASHBOARD
+========================= */
+
+@media (max-width: 1000px) {
+  .dashboard-page {
+    grid-template-columns: 230px 1fr !important;
+  }
+
+  .dashboard-content {
+    padding: 24px !important;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard-page {
+    display: block !important;
+  }
+
+  .dashboard-sidebar {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 22px !important;
+  }
+
+  .dashboard-profile-box {
+    max-width: 360px !important;
+    margin: 0 auto !important;
+  }
+
+  .dashboard-blood-box {
+    max-width: 360px !important;
+    margin: 20px auto 0 !important;
+  }
+
+  .dashboard-logout {
+    width: 100% !important;
+    max-width: 360px !important;
+    margin: 20px auto 0 !important;
+  }
+
+  .dashboard-content {
+    padding: 22px 18px !important;
+  }
+
+  .dashboard-header {
+    align-items: flex-start !important;
+    gap: 20px !important;
+  }
+
+  .dashboard-title {
+    font-size: 29px !important;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-section-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .dashboard-find-donor {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .dashboard-request-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .dashboard-content {
+    padding: 18px 14px !important;
+  }
+
+  .dashboard-title {
+    font-size: 26px !important;
+  }
+
+  .dashboard-request-top {
+    flex-wrap: wrap !important;
+  }
+
+  .dashboard-request-top > span {
+    margin-left: 0 !important;
+  }
+}
+/* =========================
+   DONOR DASHBOARD
+========================= */
+
+@media (max-width: 1000px) {
+  .donor-dashboard-page {
+    grid-template-columns: 230px 1fr !important;
+  }
+
+  .donor-dashboard-content {
+    padding: 24px !important;
+  }
+
+  .donor-dashboard-stats {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .donor-dashboard-page {
+    display: block !important;
+  }
+
+  .donor-dashboard-sidebar {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 22px !important;
+  }
+
+  .donor-dashboard-profile {
+    max-width: 360px !important;
+    margin: 0 auto !important;
+  }
+
+  .donor-dashboard-availability {
+    max-width: 360px !important;
+    margin: 20px auto 0 !important;
+  }
+
+  .donor-dashboard-details {
+    width: 100% !important;
+    max-width: 360px !important;
+    margin: 22px auto 0 !important;
+  }
+
+  .donor-dashboard-logout {
+    width: 100% !important;
+    max-width: 360px !important;
+    margin: 20px auto 0 !important;
+  }
+
+  .donor-dashboard-content {
+    padding: 22px 18px !important;
+  }
+
+  .donor-dashboard-header {
+    align-items: flex-start !important;
+    gap: 20px !important;
+  }
+
+  .donor-dashboard-title {
+    font-size: 29px !important;
+  }
+
+  .donor-dashboard-stats {
+    grid-template-columns: 1fr !important;
+  }
+
+  .donor-dashboard-section-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+  }
+
+  .donor-dashboard-request-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .donor-dashboard-content {
+    padding: 18px 14px !important;
+  }
+
+  .donor-dashboard-title {
+    font-size: 26px !important;
+  }
+
+  .donor-dashboard-request-top {
+    flex-wrap: wrap !important;
+  }
+
+  .donor-dashboard-request-top > span {
+    margin-left: 0 !important;
+  }
+
+  .donor-dashboard-actions {
+    grid-template-columns: 1fr !important;
+  }
+}
