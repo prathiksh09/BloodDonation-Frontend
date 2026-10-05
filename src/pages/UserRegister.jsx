@@ -58,7 +58,7 @@ const UserRegister = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:5001/api/create-user",
+        "https://blooddonation-backend-1.onrender.com/api/create-user",
         data,
       );
 

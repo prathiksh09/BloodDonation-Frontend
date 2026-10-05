@@ -48,7 +48,7 @@ const AdminDashboard = () => {
         // ==========================================
 
         const usersResponse = await axios.get(
-          "http://localhost:5001/api/get-all-users",
+          "https://blooddonation-backend-1.onrender.com/api/get-all-users",
           {
             headers: {
               token: token,
@@ -63,7 +63,7 @@ const AdminDashboard = () => {
         // ==========================================
 
         const donorsResponse = await axios.get(
-          "http://localhost:5001/api/get-all-donors",
+          "https://blooddonation-backend-1.onrender.com/api/get-all-donors",
           {
             headers: {
               token: token,
@@ -164,7 +164,7 @@ const AdminDashboard = () => {
       // ==========================================
 
       const response = await axios.patch(
-        `http://localhost:5001/api/user/${userId}/block-status`,
+        `https://blooddonation-backend-1.onrender.com/api/user/${userId}/block-status`,
         {
           isBlocked: isBlocked,
         },
@@ -242,7 +242,7 @@ const AdminDashboard = () => {
       // ==========================================
 
       const response = await axios.patch(
-        `http://localhost:5001/api/donor/${donorId}/block-status`,
+        `https://blooddonation-backend-1.onrender.com/api/donor/${donorId}/block-status`,
         {
           isBlocked: isBlocked,
         },
@@ -329,13 +329,12 @@ const AdminDashboard = () => {
 
             <section style={styles.profileTopCard}>
               <div>
-                <img style ={styles.profileAvatar}
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9zfzfKGaBIjTUd2PVwAw0IeKmCyj9g4OrOmx5FMpHkw&s=10"
-                alt="Admin"
-                
-              />
+                <img
+                  style={styles.profileAvatar}
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9zfzfKGaBIjTUd2PVwAw0IeKmCyj9g4OrOmx5FMpHkw&s=10"
+                  alt="Admin"
+                />
               </div>
-              
 
               <div style={styles.profileMainInfo}>
                 <div style={styles.profileNameRow}>
@@ -950,7 +949,7 @@ const styles = {
     width: "90px",
     height: "90px",
     borderRadius: "50%",
-    
+
     color: "#ffffff",
     display: "flex",
     alignItems: "center",
@@ -958,7 +957,6 @@ const styles = {
     fontSize: "34px",
     fontWeight: "700",
     flexShrink: 0,
-
   },
 
   profileMainInfo: {

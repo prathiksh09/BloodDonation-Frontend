@@ -63,7 +63,7 @@ const DonorDetails = () => {
       formData1.append("image", file);
       console.log(formData1);
       const response = await axios.post(
-        "http://localhost:5001/api/create-donor",
+        "https://blooddonation-backend-1.onrender.com/api/create-donor",
         formData1,
         {
           headers: {

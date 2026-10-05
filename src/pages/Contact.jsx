@@ -37,7 +37,7 @@ const Contact = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5001/api/contact/create",
+        "https://blooddonation-backend-1.onrender.com/api/contact/create",
         formData,
       );
       if (response.data.message) {

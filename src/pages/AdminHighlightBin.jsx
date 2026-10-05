@@ -31,7 +31,7 @@ const AdminHighlightBin = () => {
       }
 
       const response = await axios.get(
-        "http://localhost:5001/api/highlights/bin",
+        "https://blooddonation-backend-1.onrender.com/api/highlights/bin",
         {
           headers: {
             token: token,
@@ -77,7 +77,7 @@ const AdminHighlightBin = () => {
       setActionLoading(id);
 
       const response = await axios.patch(
-        `http://localhost:5001/api/highlights/${id}/restore`,
+        `https://blooddonation-backend-1.onrender.com/api/highlights/${id}/restore`,
         {},
         {
           headers: {
@@ -136,7 +136,7 @@ const AdminHighlightBin = () => {
       setActionLoading(id);
 
       const response = await axios.delete(
-        `http://localhost:5001/api/highlights/${id}/permanent`,
+        `https://blooddonation-backend-1.onrender.com/api/highlights/${id}/permanent`,
         {
           headers: {
             token: token,

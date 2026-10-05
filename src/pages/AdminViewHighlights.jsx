@@ -27,7 +27,7 @@ const AdminViewHighlights = () => {
       }
 
       const response = await axios.get(
-        "http://localhost:5001/api/highlights/all",
+        "https://blooddonation-backend-1.onrender.com/api/highlights/all",
         {
           headers: {
             token: token,
@@ -82,7 +82,7 @@ const AdminViewHighlights = () => {
       setDeleteLoading(id);
 
       const response = await axios.delete(
-        `http://localhost:5001/api/highlights/${id}`,
+        `https://blooddonation-backend-1.onrender.com/api/highlights/${id}`,
         {
           headers: {
             token: token,

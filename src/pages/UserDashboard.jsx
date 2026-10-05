@@ -1,4 +1,3 @@
-
 // import { useState, useEffect, useCallback } from "react";
 // import {
 //   FaTint,
@@ -79,7 +78,7 @@
 
 //       // GET USER REQUESTS
 //       const response = await axios.get(
-//         "http://localhost:5001/api/getUserRequest",
+//         "https://blooddonation-backend-1.onrender.com/api/getUserRequest",
 //         {
 //           headers: {
 //             token: token,
@@ -114,7 +113,7 @@
 //         acceptedRequests.map(async (request) => {
 //           try {
 //             const feedbackResponse = await axios.get(
-//               `http://localhost:5001/api/getUserFeedback/${request._id}`,
+//               `https://blooddonation-backend-1.onrender.com/api/getUserFeedback/${request._id}`,
 //               {
 //                 headers: {
 //                   token: token,
@@ -244,7 +243,7 @@
 //       setFeedbackLoading(true);
 
 //       const response = await axios.post(
-//         "http://localhost:5001/api/createFeedback",
+//         "https://blooddonation-backend-1.onrender.com/api/createFeedback",
 //         {
 //           requestId: feedbackRequest._id,
 //           message: feedbackMessage.trim(),
@@ -343,7 +342,7 @@
 //       }
 
 //       const response = await axios.get(
-//         `http://localhost:5001/api/getUserFeedback/${request._id}`,
+//         `https://blooddonation-backend-1.onrender.com/api/getUserFeedback/${request._id}`,
 //         {
 //           headers: {
 //             token: token,
@@ -544,7 +543,7 @@
 //                       <div style={styles.donorAvatar}>
 //                         {donor?.image ? (
 //                           <img
-//                             src={`http://localhost:5001/uploads/${donor.image}`}
+//                             src={`https://blooddonation-backend-1.onrender.com/uploads/${donor.image}`}
 //                             alt={donorName}
 //                             style={styles.donorImage}
 //                           />

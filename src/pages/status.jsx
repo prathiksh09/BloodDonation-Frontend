@@ -13,7 +13,7 @@ import {
   FaCheck,
 } from "react-icons/fa";
 
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import Footer from "../components/Footer";
@@ -110,7 +110,7 @@ const Status = () => {
       // ------------------------------------------------------
 
       const response = await axios.get(
-        "http://localhost:5001/api/getUserRequest",
+        "https://blooddonation-backend-1.onrender.com/api/getUserRequest",
         {
           headers: {
             token: token,
@@ -200,7 +200,7 @@ const Status = () => {
         feedbackRequests.map(async (request) => {
           try {
             const feedbackResponse = await axios.get(
-              `http://localhost:5001/api/getUserFeedback/${request._id}`,
+              `https://blooddonation-backend-1.onrender.com/api/getUserFeedback/${request._id}`,
               {
                 headers: {
                   token: token,
@@ -332,7 +332,7 @@ const Status = () => {
       // COMPLETE API
 
       const response = await axios.patch(
-        `http://localhost:5001/api/${completeRequest._id}/complete`,
+        `https://blooddonation-backend-1.onrender.com/api/${completeRequest._id}/complete`,
         {},
         {
           headers: {
@@ -469,7 +469,7 @@ const Status = () => {
       // ------------------------------------------------------
 
       const response = await axios.post(
-        "http://localhost:5001/api/createFeedback",
+        "https://blooddonation-backend-1.onrender.com/api/createFeedback",
         {
           requestId: feedbackRequest._id,
           message: feedbackMessage.trim(),
@@ -594,7 +594,7 @@ const Status = () => {
       // ------------------------------------------------------
 
       const response = await axios.get(
-        `http://localhost:5001/api/getUserFeedback/${request._id}`,
+        `https://blooddonation-backend-1.onrender.com/api/getUserFeedback/${request._id}`,
         {
           headers: {
             token: token,
@@ -737,11 +737,7 @@ const Status = () => {
             <div style={styles.sectionHeader}>
               <div>
                 <h1 style={styles.sectionTitle}>My Blood Requests</h1>
-
-                
               </div>
-
-              
             </div>
 
             {/* ==================================================
@@ -775,8 +771,6 @@ const Status = () => {
             {!loading && !errorMessage && requests.length === 0 && (
               <div style={styles.emptyBox}>
                 <h3>No Blood Requests Yet</h3>
-
-               
               </div>
             )}
 
@@ -1285,9 +1279,6 @@ const styles = {
     fontSize: "25px",
     fontWeight: "750",
   },
-
- 
-
 
   requestList: {
     width: "100%",
