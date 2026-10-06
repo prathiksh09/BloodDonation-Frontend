@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import {
   FaTint,
   FaSignOutAlt,
-  FaSignInAlt,
   FaChevronDown,
-  FaUserPlus,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -17,17 +15,13 @@ const Navbar = () => {
   // User profile dropdown
   const [showDropdown, setShowDropdown] = useState(false);
 
-  // Donor dropdown
-  const [showDonorDropdown, setShowDonorDropdown] = useState(false);
-
   // ==========================================================
   // CHECK WHETHER JWT TOKEN IS VALID
   // ==========================================================
 
   const checkLoginStatus = () => {
     const token =
-      localStorage.getItem("token") ||
-      localStorage.getItem("userToken");
+      localStorage.getItem("token") || localStorage.getItem("userToken");
 
     // No user token
     if (!token) {
@@ -59,9 +53,7 @@ const Navbar = () => {
       }
 
       // Token is valid
-      const storedUser = JSON.parse(
-        localStorage.getItem("user") || "null",
-      );
+      const storedUser = JSON.parse(localStorage.getItem("user") || "null");
 
       setIsLoggedIn(true);
       setUser(storedUser);
@@ -134,39 +126,13 @@ const Navbar = () => {
     navigate("/");
   };
 
-  // ==========================================================
-  // DONOR DROPDOWN TOGGLE
-  // ==========================================================
-
-  const handleDonorDropdown = () => {
-    setShowDonorDropdown(!showDonorDropdown);
-
-    // Close user profile dropdown if open
-    setShowDropdown(false);
-  };
-
-  // ==========================================================
-  // CLOSE DONOR DROPDOWN AFTER CLICK
-  // ==========================================================
-
-  const closeDonorDropdown = () => {
-    setShowDonorDropdown(false);
-  };
-
   return (
-    <nav
-      className="lifeline-navbar"
-      style={styles.navbar}
-    >
+    <nav className="lifeline-navbar" style={styles.navbar}>
       {/* ======================================================
           LOGO
       ====================================================== */}
 
-      <Link
-        to="/"
-        className="lifeline-logo"
-        style={styles.logo}
-      >
+      <Link to="/" className="lifeline-logo" style={styles.logo}>
         <FaTint style={styles.logoIcon} />
 
         <span>LifeLine</span>
@@ -176,18 +142,11 @@ const Navbar = () => {
           MENU
       ====================================================== */}
 
-      <ul
-        className="lifeline-menu"
-        style={styles.menu}
-      >
+      <ul className="lifeline-menu" style={styles.menu}>
         {/* HOME */}
 
         <li>
-          <Link
-            to="/"
-            className="lifeline-link"
-            style={styles.link}
-          >
+          <Link to="/" className="lifeline-link" style={styles.link}>
             Home
           </Link>
         </li>
@@ -195,11 +154,7 @@ const Navbar = () => {
         {/* ABOUT */}
 
         <li>
-          <Link
-            to="/about"
-            className="lifeline-link"
-            style={styles.link}
-          >
+          <Link to="/about" className="lifeline-link" style={styles.link}>
             About
           </Link>
         </li>
@@ -207,26 +162,16 @@ const Navbar = () => {
         {/* DONORS */}
 
         <li>
-          <Link
-            to="/donors"
-            className="lifeline-link"
-            style={styles.link}
-          >
+          <Link to="/donors" className="lifeline-link" style={styles.link}>
             Donors
           </Link>
         </li>
 
-        {/* ==================================================
-            STATUS - ONLY LOGGED IN USERS
-        ================================================== */}
+        {/* STATUS - ONLY LOGGED IN USERS */}
 
         {isLoggedIn && (
           <li>
-            <Link
-              to="/status"
-              className="lifeline-link"
-              style={styles.link}
-            >
+            <Link to="/status" className="lifeline-link" style={styles.link}>
               Status
             </Link>
           </li>
@@ -235,84 +180,17 @@ const Navbar = () => {
         {/* CONTACT */}
 
         <li>
-          <Link
-            to="/contact"
-            className="lifeline-link"
-            style={styles.link}
-          >
+          <Link to="/contact" className="lifeline-link" style={styles.link}>
             Contact
           </Link>
         </li>
       </ul>
 
       {/* ======================================================
-          RIGHT SIDE BUTTONS
+          RIGHT SIDE
       ====================================================== */}
 
-      <div
-        className="lifeline-buttons"
-        style={styles.buttons}
-      >
-        {/* ====================================================
-            DONOR BUTTON
-        ==================================================== */}
-
-        <div style={styles.donorContainer}>
-          <button
-            onClick={handleDonorDropdown}
-            style={styles.donorBtn}
-          >
-            <FaTint style={styles.donorBtnIcon} />
-
-            <span>Donor</span>
-
-            <FaChevronDown
-              style={{
-                ...styles.donorArrow,
-                transform: showDonorDropdown
-                  ? "rotate(180deg)"
-                  : "rotate(0deg)",
-              }}
-            />
-          </button>
-
-          {/* ==================================================
-              DONOR DROPDOWN
-          ================================================== */}
-
-          {showDonorDropdown && (
-            <div style={styles.donorDropdown}>
-              {/* DONOR LOGIN */}
-
-              <Link
-                to="/donor-login"
-                style={styles.donorDropdownItem}
-                onClick={closeDonorDropdown}
-              >
-                <FaSignInAlt
-                  style={styles.dropdownIcon}
-                />
-
-                <span>Donor Login</span>
-              </Link>
-
-              {/* DONOR REGISTER */}
-
-              <Link
-                to="/donor-register"
-                style={styles.donorDropdownItem}
-                onClick={closeDonorDropdown}
-              >
-                <FaUserPlus
-                  style={styles.dropdownIcon}
-                />
-
-                <span>Donor Register</span>
-              </Link>
-            </div>
-          )}
-        </div>
-
+      <div className="lifeline-buttons" style={styles.buttons}>
         {/* ====================================================
             USER LOGIN / PROFILE
         ==================================================== */}
@@ -326,7 +204,6 @@ const Navbar = () => {
             <button
               onClick={() => {
                 setShowDropdown(!showDropdown);
-                setShowDonorDropdown(false);
               }}
               style={styles.profileBox}
             >
@@ -340,26 +217,20 @@ const Navbar = () => {
                 />
               ) : (
                 <div style={styles.profileFallback}>
-                  {user?.name
-                    ?.charAt(0)
-                    ?.toUpperCase() || "U"}
+                  {user?.name?.charAt(0)?.toUpperCase() || "U"}
                 </div>
               )}
 
               {/* USER NAME */}
 
-              <span style={styles.userName}>
-                {user?.name || "User"}
-              </span>
+              <span style={styles.userName}>{user?.name || "User"}</span>
 
               {/* ARROW */}
 
               <FaChevronDown
                 style={{
                   ...styles.arrow,
-                  transform: showDropdown
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
+                  transform: showDropdown ? "rotate(180deg)" : "rotate(0deg)",
                 }}
               />
             </button>
@@ -370,14 +241,8 @@ const Navbar = () => {
 
             {showDropdown && (
               <div style={styles.dropdown}>
-                <button
-                  onClick={handleLogout}
-                  style={styles.logoutBtn}
-                >
-                  <FaSignOutAlt
-                    style={{ marginRight: "8px" }}
-                  />
-
+                <button onClick={handleLogout} style={styles.logoutBtn}>
+                  <FaSignOutAlt style={{ marginRight: "8px" }} />
                   Logout
                 </button>
               </div>
@@ -385,17 +250,10 @@ const Navbar = () => {
           </div>
         ) : (
           /* ================================================
-             LOGGED OUT → USER LOGIN
+             LOGGED OUT → LOGIN
           ================================================= */
 
-          <Link
-            to="/user-login"
-            style={styles.loginBtn}
-          >
-            <FaSignInAlt
-              style={{ marginRight: "8px" }}
-            />
-
+          <Link to="/user-login" style={styles.loginBtn}>
             Login
           </Link>
         )}
@@ -490,105 +348,6 @@ const styles = {
     alignItems: "center",
 
     gap: "12px",
-  },
-
-  // ========================================================
-  // DONOR BUTTON
-  // ========================================================
-
-  donorContainer: {
-    position: "relative",
-  },
-
-  donorBtn: {
-    height: "44px",
-
-    padding: "0 15px",
-
-    border: "2px solid #d90429",
-    borderRadius: "8px",
-
-    backgroundColor: "#d90429",
-    color: "#ffffff",
-
-    fontWeight: "600",
-    fontSize: "15px",
-
-    cursor: "pointer",
-
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-
-    whiteSpace: "nowrap",
-  },
-
-  donorBtnIcon: {
-    marginRight: "7px",
-    fontSize: "15px",
-  },
-
-  donorArrow: {
-    marginLeft: "8px",
-    fontSize: "10px",
-
-    transition: "transform 0.2s ease",
-  },
-
-  // ========================================================
-  // DONOR DROPDOWN
-  // ========================================================
-
-  donorDropdown: {
-    position: "absolute",
-
-    top: "53px",
-    right: 0,
-
-    width: "190px",
-
-    backgroundColor: "#ffffff",
-
-    border: "1px solid #e3e3e3",
-
-    borderRadius: "10px",
-
-    padding: "8px",
-
-    boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
-
-    zIndex: 2000,
-
-    boxSizing: "border-box",
-  },
-
-  donorDropdownItem: {
-    width: "100%",
-
-    display: "flex",
-    alignItems: "center",
-
-    gap: "10px",
-
-    padding: "12px",
-
-    boxSizing: "border-box",
-
-    borderRadius: "7px",
-
-    color: "#333333",
-
-    textDecoration: "none",
-
-    fontSize: "14px",
-
-    fontWeight: "600",
-  },
-
-  dropdownIcon: {
-    color: "#d90429",
-    fontSize: "16px",
-    flexShrink: 0,
   },
 
   // ========================================================
@@ -730,7 +489,7 @@ const styles = {
   },
 
   // ========================================================
-  // USER LOGIN BUTTON
+  // LOGIN BUTTON
   // ========================================================
 
   loginBtn: {

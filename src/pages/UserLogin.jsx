@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaEnvelope, FaLock, FaUser, FaTint } from "react-icons/fa";
+import { FaEnvelope, FaLock, } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -113,9 +113,7 @@ const UserLogin = () => {
         ================================================== */}
 
         <div style={styles.headingArea}>
-          <div style={styles.titleIcon}>
-            <FaTint />
-          </div>
+          
 
           <h1 style={styles.title}>User Login</h1>
 
@@ -138,7 +136,7 @@ const UserLogin = () => {
               ...styles.activeSwitch,
             }}
           >
-            <FaUser />
+          
             <span>User Login</span>
           </button>
 
@@ -152,7 +150,7 @@ const UserLogin = () => {
               ...styles.inactiveSwitch,
             }}
           >
-            <FaTint />
+            
             <span>Donor Login</span>
           </button>
         </div>
@@ -272,25 +270,6 @@ const styles = {
 
   headingArea: {
     textAlign: "center",
-  },
-
-  titleIcon: {
-    width: "58px",
-    height: "58px",
-
-    margin: "0 auto 12px",
-
-    borderRadius: "50%",
-
-    backgroundColor: "#fff0f2",
-
-    color: "#d90429",
-
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-
-    fontSize: "27px",
   },
 
   title: {
