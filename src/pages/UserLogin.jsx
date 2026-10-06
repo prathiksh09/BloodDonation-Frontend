@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaUser, FaTint } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -52,10 +52,8 @@ const UserLogin = () => {
       if (response.data.success) {
         setMessage(response.data.message || "Login successful");
 
-  
         localStorage.removeItem("userBlocked");
 
-  
         localStorage.setItem("sessionRole", "user");
 
         // ======================================================
@@ -66,7 +64,6 @@ const UserLogin = () => {
 
         // Separate token used by UserBlockWatcher
         localStorage.setItem("userToken", response.data.token);
-
 
         if (response.data.user) {
           localStorage.setItem("user", JSON.stringify(response.data.user));
@@ -100,18 +97,69 @@ const UserLogin = () => {
     }
   };
 
- 
+  // ==========================================================
+  // GO TO DONOR LOGIN
+  // ==========================================================
+
+  const handleDonorLogin = () => {
+    navigate("/donor-login");
+  };
 
   return (
     <div style={styles.container}>
       <form style={styles.card} onSubmit={handleSubmit}>
-        <h1 style={styles.title}>User Login</h1>
+        {/* ==================================================
+            TITLE
+        ================================================== */}
 
-        <p style={styles.subtitle}>
-          Login to search blood donors and send requests.
-        </p>
+        <div style={styles.headingArea}>
+          <div style={styles.titleIcon}>
+            <FaTint />
+          </div>
 
-        {/* EMAIL */}
+          <h1 style={styles.title}>User Login</h1>
+
+          <p style={styles.subtitle}>
+            Login to search blood donors and send requests.
+          </p>
+        </div>
+
+        {/* ==================================================
+            USER / DONOR SWITCH
+        ================================================== */}
+
+        <div style={styles.switchContainer}>
+          {/* USER */}
+
+          <button
+            type="button"
+            style={{
+              ...styles.switchButton,
+              ...styles.activeSwitch,
+            }}
+          >
+            <FaUser />
+            <span>User Login</span>
+          </button>
+
+          {/* DONOR */}
+
+          <button
+            type="button"
+            onClick={handleDonorLogin}
+            style={{
+              ...styles.switchButton,
+              ...styles.inactiveSwitch,
+            }}
+          >
+            <FaTint />
+            <span>Donor Login</span>
+          </button>
+        </div>
+
+        {/* ==================================================
+            EMAIL
+        ================================================== */}
 
         <div style={styles.inputBox}>
           <FaEnvelope style={styles.icon} />
@@ -127,7 +175,9 @@ const UserLogin = () => {
           />
         </div>
 
-        {/* PASSWORD */}
+        {/* ==================================================
+            PASSWORD
+        ================================================== */}
 
         <div style={styles.inputBox}>
           <FaLock style={styles.icon} />
@@ -143,7 +193,9 @@ const UserLogin = () => {
           />
         </div>
 
-        {/* LOGIN BUTTON */}
+        {/* ==================================================
+            LOGIN BUTTON
+        ================================================== */}
 
         <button
           type="submit"
@@ -156,11 +208,15 @@ const UserLogin = () => {
           {loading ? "Logging in..." : "Login"}
         </button>
 
-        {/* MESSAGE */}
+        {/* ==================================================
+            MESSAGE
+        ================================================== */}
 
         {message && <p style={styles.message}>{message}</p>}
 
-        {/* REGISTER */}
+        {/* ==================================================
+            REGISTER
+        ================================================== */}
 
         <p style={styles.register}>
           Don't have an account?{" "}
@@ -180,93 +236,265 @@ const UserLogin = () => {
 const styles = {
   container: {
     minHeight: "100vh",
+
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "#f8f8f8",
-    padding: "20px",
+
+    background:
+      "linear-gradient(135deg, #fff5f6 0%, #f8f8f8 50%, #ffffff 100%)",
+
+    padding: "30px 20px",
+
+    boxSizing: "border-box",
   },
 
   card: {
     width: "100%",
-    maxWidth: "400px",
-    background: "#fff",
-    padding: "40px",
+    maxWidth: "420px",
+
+    background: "#ffffff",
+
+    padding: "38px",
+
     boxSizing: "border-box",
-    borderRadius: "15px",
-    boxShadow: "0 10px 25px rgba(0,0,0,.08)",
+
+    borderRadius: "18px",
+
+    boxShadow: "0 15px 40px rgba(0, 0, 0, 0.10)",
+
+    border: "1px solid #f0f0f0",
+  },
+
+  // ========================================================
+  // HEADING
+  // ========================================================
+
+  headingArea: {
+    textAlign: "center",
+  },
+
+  titleIcon: {
+    width: "58px",
+    height: "58px",
+
+    margin: "0 auto 12px",
+
+    borderRadius: "50%",
+
+    backgroundColor: "#fff0f2",
+
+    color: "#d90429",
+
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+
+    fontSize: "27px",
   },
 
   title: {
     textAlign: "center",
+
     color: "#d90429",
-    marginBottom: "10px",
-    fontSize: "50px",
-    fontWeight: "bold",
+
+    margin: "0 0 8px",
+
+    fontSize: "32px",
+
+    fontWeight: "700",
   },
 
   subtitle: {
     textAlign: "center",
-    color: "gray",
-    marginBottom: "30px",
-    fontSize: "16px",
+
+    color: "#777777",
+
+    margin: "0 0 25px",
+
+    fontSize: "14px",
+
     lineHeight: "1.5",
   },
 
+  // ========================================================
+  // USER / DONOR SWITCH
+  // ========================================================
+
+  switchContainer: {
+    display: "flex",
+
+    width: "100%",
+
+    backgroundColor: "#f5f5f5",
+
+    borderRadius: "10px",
+
+    padding: "4px",
+
+    marginBottom: "25px",
+
+    boxSizing: "border-box",
+  },
+
+  switchButton: {
+    flex: 1,
+
+    height: "43px",
+
+    border: "none",
+
+    borderRadius: "8px",
+
+    display: "flex",
+
+    alignItems: "center",
+
+    justifyContent: "center",
+
+    gap: "7px",
+
+    fontSize: "14px",
+
+    fontWeight: "600",
+
+    cursor: "pointer",
+
+    transition: "all 0.2s ease",
+  },
+
+  activeSwitch: {
+    backgroundColor: "#d90429",
+
+    color: "#ffffff",
+
+    boxShadow: "0 3px 8px rgba(217, 4, 41, 0.25)",
+  },
+
+  inactiveSwitch: {
+    backgroundColor: "transparent",
+
+    color: "#555555",
+  },
+
+  // ========================================================
+  // INPUT
+  // ========================================================
+
   inputBox: {
     display: "flex",
+
     alignItems: "center",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-    padding: "12px",
-    marginBottom: "20px",
+
+    border: "1px solid #dddddd",
+
+    borderRadius: "9px",
+
+    padding: "12px 13px",
+
+    marginBottom: "17px",
+
+    backgroundColor: "#ffffff",
+
+    transition: "border 0.2s ease",
+
+    boxSizing: "border-box",
   },
 
   icon: {
     color: "#d90429",
+
     marginRight: "10px",
-    fontSize: "18px",
+
+    fontSize: "17px",
+
     flexShrink: 0,
   },
 
   input: {
     border: "none",
+
     outline: "none",
+
     width: "100%",
+
     minWidth: 0,
-    fontSize: "16px",
+
+    fontSize: "15px",
+
+    color: "#333333",
+
+    backgroundColor: "transparent",
   },
+
+  // ========================================================
+  // LOGIN BUTTON
+  // ========================================================
 
   button: {
     width: "100%",
+
     padding: "13px",
+
     border: "none",
-    borderRadius: "8px",
+
+    borderRadius: "9px",
+
     background: "#d90429",
-    color: "#fff",
-    fontSize: "18px",
+
+    color: "#ffffff",
+
+    fontSize: "16px",
+
     cursor: "pointer",
-    fontWeight: "bold",
-    marginTop: "10px",
+
+    fontWeight: "700",
+
+    marginTop: "5px",
+
+    boxShadow: "0 5px 12px rgba(217, 4, 41, 0.20)",
   },
+
+  // ========================================================
+  // MESSAGE
+  // ========================================================
 
   message: {
     marginTop: "15px",
+
+    marginBottom: "0",
+
     textAlign: "center",
+
     color: "#d90429",
+
     fontWeight: "600",
+
+    fontSize: "14px",
   },
 
+  // ========================================================
+  // REGISTER
+  // ========================================================
+
   register: {
-    marginTop: "25px",
+    marginTop: "22px",
+
+    marginBottom: "0",
+
     textAlign: "center",
-    fontSize: "16px",
+
+    fontSize: "14px",
+
+    color: "#555555",
   },
 
   link: {
     color: "#d90429",
+
     textDecoration: "none",
-    fontWeight: "bold",
+
+    fontWeight: "700",
   },
 };
 
