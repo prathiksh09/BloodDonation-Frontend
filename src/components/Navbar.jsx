@@ -26,8 +26,7 @@ const Navbar = () => {
 
   const checkLoginStatus = () => {
     const token =
-      localStorage.getItem("token") ||
-      localStorage.getItem("userToken");
+      localStorage.getItem("token") || localStorage.getItem("userToken");
 
     // No user token
     if (!token) {
@@ -59,14 +58,12 @@ const Navbar = () => {
       }
 
       // Token is valid
-      const storedUser = JSON.parse(
-        localStorage.getItem("user") || "null",
-      );
+      const storedUser = JSON.parse(localStorage.getItem("user") || "null");
 
       setIsLoggedIn(true);
       setUser(storedUser);
     } catch (error) {
-      console.log("Invalid token");
+      console.log("Invalid token", error);
 
       // Invalid token
       localStorage.removeItem("token");
@@ -154,21 +151,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className="lifeline-navbar"
-      style={styles.navbar}
-    >
+    <nav className="lifeline-navbar" style={styles.navbar}>
       {/* ======================================================
           LOGO
       ====================================================== */}
 
-      <Link
-        to="/"
-        className="lifeline-logo"
-        style={styles.logo}
-      >
+      <Link to="/" className="lifeline-logo" style={styles.logo}>
         <FaTint style={styles.logoIcon} />
-
         <span>LifeLine</span>
       </Link>
 
@@ -176,18 +165,11 @@ const Navbar = () => {
           MENU
       ====================================================== */}
 
-      <ul
-        className="lifeline-menu"
-        style={styles.menu}
-      >
+      <ul className="lifeline-menu" style={styles.menu}>
         {/* HOME */}
 
         <li>
-          <Link
-            to="/"
-            className="lifeline-link"
-            style={styles.link}
-          >
+          <Link to="/" className="lifeline-link" style={styles.link}>
             Home
           </Link>
         </li>
@@ -195,11 +177,7 @@ const Navbar = () => {
         {/* ABOUT */}
 
         <li>
-          <Link
-            to="/about"
-            className="lifeline-link"
-            style={styles.link}
-          >
+          <Link to="/about" className="lifeline-link" style={styles.link}>
             About
           </Link>
         </li>
@@ -207,11 +185,7 @@ const Navbar = () => {
         {/* DONORS */}
 
         <li>
-          <Link
-            to="/donors"
-            className="lifeline-link"
-            style={styles.link}
-          >
+          <Link to="/donors" className="lifeline-link" style={styles.link}>
             Donors
           </Link>
         </li>
@@ -222,11 +196,7 @@ const Navbar = () => {
 
         {isLoggedIn && (
           <li>
-            <Link
-              to="/status"
-              className="lifeline-link"
-              style={styles.link}
-            >
+            <Link to="/status" className="lifeline-link" style={styles.link}>
               Status
             </Link>
           </li>
@@ -235,11 +205,7 @@ const Navbar = () => {
         {/* CONTACT */}
 
         <li>
-          <Link
-            to="/contact"
-            className="lifeline-link"
-            style={styles.link}
-          >
+          <Link to="/contact" className="lifeline-link" style={styles.link}>
             Contact
           </Link>
         </li>
@@ -249,19 +215,13 @@ const Navbar = () => {
           RIGHT SIDE BUTTONS
       ====================================================== */}
 
-      <div
-        className="lifeline-buttons"
-        style={styles.buttons}
-      >
+      <div className="lifeline-buttons" style={styles.buttons}>
         {/* ====================================================
             DONOR BUTTON
         ==================================================== */}
 
         <div style={styles.donorContainer}>
-          <button
-            onClick={handleDonorDropdown}
-            style={styles.donorBtn}
-          >
+          <button onClick={handleDonorDropdown} style={styles.donorBtn}>
             <FaTint style={styles.donorBtnIcon} />
 
             <span>Donor</span>
@@ -289,9 +249,7 @@ const Navbar = () => {
                 style={styles.donorDropdownItem}
                 onClick={closeDonorDropdown}
               >
-                <FaSignInAlt
-                  style={styles.dropdownIcon}
-                />
+                <FaSignInAlt style={styles.dropdownIcon} />
 
                 <span>Donor Login</span>
               </Link>
@@ -303,9 +261,7 @@ const Navbar = () => {
                 style={styles.donorDropdownItem}
                 onClick={closeDonorDropdown}
               >
-                <FaUserPlus
-                  style={styles.dropdownIcon}
-                />
+                <FaUserPlus style={styles.dropdownIcon} />
 
                 <span>Donor Register</span>
               </Link>
@@ -340,26 +296,20 @@ const Navbar = () => {
                 />
               ) : (
                 <div style={styles.profileFallback}>
-                  {user?.name
-                    ?.charAt(0)
-                    ?.toUpperCase() || "U"}
+                  {user?.name?.charAt(0)?.toUpperCase() || "U"}
                 </div>
               )}
 
               {/* USER NAME */}
 
-              <span style={styles.userName}>
-                {user?.name || "User"}
-              </span>
+              <span style={styles.userName}>{user?.name || "User"}</span>
 
               {/* ARROW */}
 
               <FaChevronDown
                 style={{
                   ...styles.arrow,
-                  transform: showDropdown
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
+                  transform: showDropdown ? "rotate(180deg)" : "rotate(0deg)",
                 }}
               />
             </button>
@@ -370,14 +320,8 @@ const Navbar = () => {
 
             {showDropdown && (
               <div style={styles.dropdown}>
-                <button
-                  onClick={handleLogout}
-                  style={styles.logoutBtn}
-                >
-                  <FaSignOutAlt
-                    style={{ marginRight: "8px" }}
-                  />
-
+                <button onClick={handleLogout} style={styles.logoutBtn}>
+                  <FaSignOutAlt style={{ marginRight: "8px" }} />
                   Logout
                 </button>
               </div>
@@ -388,14 +332,8 @@ const Navbar = () => {
              LOGGED OUT → USER LOGIN
           ================================================= */
 
-          <Link
-            to="/user-login"
-            style={styles.loginBtn}
-          >
-            <FaSignInAlt
-              style={{ marginRight: "8px" }}
-            />
-
+          <Link to="/user-login" style={styles.loginBtn}>
+            <FaSignInAlt style={{ marginRight: "8px" }} />
             Login
           </Link>
         )}
