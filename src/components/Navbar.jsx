@@ -4,7 +4,6 @@ import {
   FaSignOutAlt,
   FaSignInAlt,
   FaChevronDown,
-  FaUserPlus,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -16,9 +15,6 @@ const Navbar = () => {
 
   // User profile dropdown
   const [showDropdown, setShowDropdown] = useState(false);
-
-  // Donor dropdown
-  const [showDonorDropdown, setShowDonorDropdown] = useState(false);
 
   // ==========================================================
   // CHECK WHETHER JWT TOKEN IS VALID
@@ -131,25 +127,6 @@ const Navbar = () => {
     navigate("/");
   };
 
-  // ==========================================================
-  // DONOR DROPDOWN TOGGLE
-  // ==========================================================
-
-  const handleDonorDropdown = () => {
-    setShowDonorDropdown(!showDonorDropdown);
-
-    // Close user profile dropdown if open
-    setShowDropdown(false);
-  };
-
-  // ==========================================================
-  // CLOSE DONOR DROPDOWN AFTER CLICK
-  // ==========================================================
-
-  const closeDonorDropdown = () => {
-    setShowDonorDropdown(false);
-  };
-
   return (
     <nav className="lifeline-navbar" style={styles.navbar}>
       {/* ======================================================
@@ -217,59 +194,6 @@ const Navbar = () => {
 
       <div className="lifeline-buttons" style={styles.buttons}>
         {/* ====================================================
-            DONOR BUTTON
-        ==================================================== */}
-
-        <div style={styles.donorContainer}>
-          <button onClick={handleDonorDropdown} style={styles.donorBtn}>
-            <FaTint style={styles.donorBtnIcon} />
-
-            <span>Donor</span>
-
-            <FaChevronDown
-              style={{
-                ...styles.donorArrow,
-                transform: showDonorDropdown
-                  ? "rotate(180deg)"
-                  : "rotate(0deg)",
-              }}
-            />
-          </button>
-
-          {/* ==================================================
-              DONOR DROPDOWN
-          ================================================== */}
-
-          {showDonorDropdown && (
-            <div style={styles.donorDropdown}>
-              {/* DONOR LOGIN */}
-
-              <Link
-                to="/donor-login"
-                style={styles.donorDropdownItem}
-                onClick={closeDonorDropdown}
-              >
-                <FaSignInAlt style={styles.dropdownIcon} />
-
-                <span>Donor Login</span>
-              </Link>
-
-              {/* DONOR REGISTER */}
-
-              <Link
-                to="/donor-register"
-                style={styles.donorDropdownItem}
-                onClick={closeDonorDropdown}
-              >
-                <FaUserPlus style={styles.dropdownIcon} />
-
-                <span>Donor Register</span>
-              </Link>
-            </div>
-          )}
-        </div>
-
-        {/* ====================================================
             USER LOGIN / PROFILE
         ==================================================== */}
 
@@ -282,7 +206,6 @@ const Navbar = () => {
             <button
               onClick={() => {
                 setShowDropdown(!showDropdown);
-                setShowDonorDropdown(false);
               }}
               style={styles.profileBox}
             >
@@ -329,7 +252,7 @@ const Navbar = () => {
           </div>
         ) : (
           /* ================================================
-             LOGGED OUT → USER LOGIN
+             LOGGED OUT → SINGLE LOGIN BUTTON
           ================================================= */
 
           <Link to="/user-login" style={styles.loginBtn}>
@@ -428,105 +351,6 @@ const styles = {
     alignItems: "center",
 
     gap: "12px",
-  },
-
-  // ========================================================
-  // DONOR BUTTON
-  // ========================================================
-
-  donorContainer: {
-    position: "relative",
-  },
-
-  donorBtn: {
-    height: "44px",
-
-    padding: "0 15px",
-
-    border: "2px solid #d90429",
-    borderRadius: "8px",
-
-    backgroundColor: "#d90429",
-    color: "#ffffff",
-
-    fontWeight: "600",
-    fontSize: "15px",
-
-    cursor: "pointer",
-
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-
-    whiteSpace: "nowrap",
-  },
-
-  donorBtnIcon: {
-    marginRight: "7px",
-    fontSize: "15px",
-  },
-
-  donorArrow: {
-    marginLeft: "8px",
-    fontSize: "10px",
-
-    transition: "transform 0.2s ease",
-  },
-
-  // ========================================================
-  // DONOR DROPDOWN
-  // ========================================================
-
-  donorDropdown: {
-    position: "absolute",
-
-    top: "53px",
-    right: 0,
-
-    width: "190px",
-
-    backgroundColor: "#ffffff",
-
-    border: "1px solid #e3e3e3",
-
-    borderRadius: "10px",
-
-    padding: "8px",
-
-    boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
-
-    zIndex: 2000,
-
-    boxSizing: "border-box",
-  },
-
-  donorDropdownItem: {
-    width: "100%",
-
-    display: "flex",
-    alignItems: "center",
-
-    gap: "10px",
-
-    padding: "12px",
-
-    boxSizing: "border-box",
-
-    borderRadius: "7px",
-
-    color: "#333333",
-
-    textDecoration: "none",
-
-    fontSize: "14px",
-
-    fontWeight: "600",
-  },
-
-  dropdownIcon: {
-    color: "#d90429",
-    fontSize: "16px",
-    flexShrink: 0,
   },
 
   // ========================================================
